@@ -25,8 +25,8 @@ public class OnlinerTest {
     @Test
     public void priceApple() throws Exception {
         onlinerMainPage.OpenMainPage(ONLINER_URL);
-        Driver.removeTimeout();
-        onlinerMainPage.goToSearchResults("Iphone XR", 1550);
+        double actual = onlinerMainPage.goToSearchResults();
+        Assert.assertTrue(actual > 100);
     }
 
     @AfterClass
