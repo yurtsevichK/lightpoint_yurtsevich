@@ -14,15 +14,22 @@ public class OnlinerMainPage extends OnlinerAbstractPage {
 
     protected Actions builder;
 
-    @FindBy(xpath = "//*[@class='project-navigation__text'][contains(.,'Смартфоны')]")
-    private WebElement smartphone;
+//    @FindBy(xpath = "//*[@class='project-navigation__text'][contains(.,'Смартфоны')]")
+  //  private WebElement smartphone;
+    @FindBy (xpath = "//*[@class='b-main-navigation__text'][contains(.,'Каталог')]")
+    private WebElement catalog;
 
-    @FindBy(xpath = "(//*[@class='schema-filter__checkbox-text'][contains(text(),'Samsung')])[1]")
-    private WebElement samsung;
+    @FindBy(xpath = "//*[@class='catalog-navigation-classifier__item-title-wrapper'][contains(.,'Электроника')]")
+    private WebElement electronics;
+
+    @FindBy(xpath = "(//*[@class=\"catalog-navigation-list__aside-title\"])[1]")
+    private WebElement mobile;
+
+    @FindBy (xpath = "(//*[@class='catalog-navigation-list__dropdown-title'])[1]")
+    private WebElement phone;
 
     @FindBy(xpath = "(//*[@class='schema-filter__checkbox-text'][contains(text(),'Apple')])[1]")
     private WebElement apple;
-
 
     private String overloadXpath = "(//*[@class='schema-products schema-products_processing'])[1]";
 
@@ -45,14 +52,18 @@ public class OnlinerMainPage extends OnlinerAbstractPage {
 
     public double goToSearchResults() throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        smartphone.click();
+        catalog.click();
         Thread.sleep(10000);
-        scrollPageDown(samsung);
-        samsung.click();
+        scrollPageDown(electronics);
+        electronics.click();
         Thread.sleep(1000);
+        scrollPageDown(mobile);
+        wait.until(ExpectedConditions.elementToBeClickable(mobile)).click();
+        phone.click();
         scrollPageDown(apple);
-        wait.until(ExpectedConditions.elementToBeClickable(apple)).click();
+        apple.click();
         Thread.sleep(5000);
+        System.out.println(priceApple.getText());
         return Double.parseDouble(priceApple.getText().replaceAll("[^\\d.]", "")) / 100;
     }
 
